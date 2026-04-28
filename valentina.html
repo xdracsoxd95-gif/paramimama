@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi Mamita 💖</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@900&family=Poppins:wght@300;500;700&display=swap');
+
+        :root {
+            --rojo-amor: #FF5E62;
+            --coral-suave: #FF99AC;
+            --oro-real: #FFD700;
+            --cafe-dulce: #4E342E;
+            --crema-fondo: #FFFBF0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--crema-fondo);
+            color: var(--cafe-dulce);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* FONDO DINÁMICO */
+        .ambient-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+            background: radial-gradient(circle at 50% 50%, #FFF3E0 0%, #FCE4EC 100%);
+        }
+
+        .hearts-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .heart { position: absolute; color: var(--rojo-amor); opacity: 0.3; animation: floatUp linear infinite; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) scale(0.5) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.4; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+        }
+
+        /* PANTALLAS */
+        .screen {
+            position: absolute; width: 90%; max-width: 420px;
+            display: none; flex-direction: column; align-items: center; text-align: center;
+            animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        .active { display: flex; }
+
+        @keyframes bounceIn {
+            from { opacity: 0; transform: scale(0.8) translateY(50px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* TEXTOS ESTILO INFANTIL/PREMIUM */
+        .txt-mami { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--rojo-amor); margin-bottom: 5px; }
+        .txt-grande { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; line-height: 1.1; margin-bottom: 15px; color: var(--cafe-dulce); }
+        .txt-nene { font-size: 1.1rem; font-weight: 500; line-height: 1.6; color: #795548; margin-bottom: 25px; }
+
+        /* LA SUPER CAJA DE SORPRESA */
+        .gift-wrapper {
+            position: relative; width: 220px; height: 200px;
+            cursor: pointer; perspective: 1000px; margin: 30px 0;
+            filter: drop-shadow(0 20px 30px rgba(255, 94, 98, 0.3));
+        }
+
+        .gift-box {
+            position: absolute; bottom: 0; width: 100%; height: 130px;
+            background: linear-gradient(135deg, var(--rojo-amor) 0%, #e64a19 100%);
+            border-radius: 12px; border: 2px solid rgba(255,255,255,0.2);
+            overflow: hidden;
+        }
+
+        .gift-lid {
+            position: absolute; top: 45px; left: -10px; width: 240px; height: 50px;
+            background: var(--rojo-amor); border-radius: 8px; z-index: 10;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: all 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .ribbon-main {
+            position: absolute; left: 50%; transform: translateX(-50%);
+            width: 45px; height: 100%; background: var(--oro-real);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .bow-knot {
+            position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+            width: 40px; height: 40px; background: var(--oro-real);
+            border-radius: 10px; z-index: 12; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .bow-loop {
+            position: absolute; top: -5px; width: 70px; height: 50px;
+            border: 12px solid var(--oro-real); border-radius: 50% 50% 0 50%;
+            background: transparent;
+        }
+        .loop-left { left: -60px; transform: rotate(-10deg); }
+        .loop-right { right: -60px; transform: rotate(190deg) scaleY(-1); }
+
+        .open .gift-lid { transform: translateY(-160px) rotateX(100deg); opacity: 0; }
+        .open .bow-knot, .open .bow-loop { opacity: 0; transform: scale(0); transition: 0.4s; }
+
+        /* BOTÓN */
+        .btn-mami {
+            background: white; border: 2px solid var(--rojo-amor);
+            padding: 18px 40px; border-radius: 50px;
+            font-weight: 700; color: var(--rojo-amor);
+            text-transform: uppercase; letter-spacing: 1px;
+            cursor: pointer; transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(255, 94, 98, 0.15);
+        }
+        .btn-mami:hover { background: var(--rojo-amor); color: white; transform: translateY(-3px); }
+
+        /* FOTO */
+        .photo-card {
+            width: 300px; padding: 15px 15px 15px 15px; background: white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); transform: rotate(-2deg);
+            border-radius: 2px; margin-bottom: 20px;
+        }
+        .photo-card img { width: 100%; height: 260px; object-fit: cover; filter: sepia(0.2); }
+        .photo-card::after { content: 'Mi persona favorita'; font-family: 'Dancing Script'; font-size: 1.5rem; color: #888; }
+
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+    </style>
+</head>
+<body>
+
+    <div class="ambient-bg"></div>
+    <div class="hearts-container" id="hearts"></div>
+
+    <audio id="musicaFondo" loop>
+        <source src="https://www.chosic.com/wp-content/uploads/2021/04/Emotional-Piano-Music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="screen active" id="s1">
+        <h2 class="txt-mami">¡Mamita!</h2>
+        <h1 class="txt-grande">Tengo una cosita <br>para ti...</h1>
+        <p class="txt-nene">Es un secreto muy, muy grande <br>que guardé en mi corazón. 🐥</p>
+        <button class="btn-mami" onclick="iniciarConMusica()">¿Qué es, qué es?</button>
+    </div>
+
+    <div class="screen" id="s2">
+        <h1 class="txt-grande">¡Es una sorpresa!</h1>
+        <p class="txt-nene">La hice con mis manitos <br>y muchos besitos de chocolate. 🍫</p>
+        <div class="gift-wrapper" id="gift" onclick="openGift()">
+            <div class="gift-lid">
+                <div class="ribbon-main"></div>
+                <div class="bow-knot">
+                    <div class="bow-loop loop-left"></div>
+                    <div class="bow-loop loop-right"></div>
+                </div>
+            </div>
+            <div class="gift-box"><div class="ribbon-main"></div></div>
+        </div>
+        <p style="font-weight: 700; color: var(--rojo-amor); animation: pulse 1s infinite;">¡TOCA EL REGALO!</p>
+    </div>
+
+    <div class="screen" id="s3">
+        <div class="photo-card" id="photoFrame">
+            <img src="img/valentina.webp" alt="Nosotros">
+        </div>
+        <h1 class="txt-grande">¡Te mando un beso enorme!</h1>
+        <p class="txt-nene">Te quiero desde aquí <br>hasta la luna. 🌙</p>
+        <button class="btn-mami" onclick="goTo(4)">Escucha...</button>
+    </div>
+
+    <div class="screen" id="s4">
+        <h1 class="txt-mami">Te quiero decir...</h1>
+        <div id="typewriter" class="txt-nene" style="font-size: 1.3rem; font-weight: 700; min-height: 120px;"></div>
+        <button class="btn-mami" id="btn4" style="display:none;" onclick="goTo(5)">Tengo un video 🎥</button>
+    </div>
+
+    <div class="screen" id="s5">
+        <h1 class="txt-grande">¡Mírame, Mamita!</h1>
+        <div style="width: 70%; border-radius: 20px; overflow: hidden; border: 10px solid white; box-shadow: 0 20px 50px rgba(0,0,0,0.1);">
+            <video id="vid" width="100%" controls>
+                <source src="videos/valentina.mp4">
+            </video>
+        </div>
+        <button class="btn-mami" onclick="goTo(6)" style="margin-top: 25px;">El abrazo final</button>
+    </div>
+
+    <div class="screen" id="s6">
+        <h1 class="txt-mami" style="font-size: 4.5rem;">¡Te amo!</h1>
+        <h1 class="txt-grande">Eres la mejor <br>mamá del universo.</h1>
+        <p class="txt-nene">Gracias por tus abrazos de oso <br>y por cuidarme siempre. 🧸</p>
+        <button class="btn-mami" onclick="location.reload()">Ver de nuevo 💖</button>
+    </div>
+
+    <script>
+        function createHearts() {
+            const container = document.getElementById('hearts');
+            const icons = ['❤', '💖', '⭐', '🍭'];
+            for(let i=0; i<30; i++) {
+                const h = document.createElement('div');
+                h.className = 'heart';
+                h.innerText = icons[Math.floor(Math.random()*icons.length)];
+                h.style.left = Math.random() * 100 + 'vw';
+                h.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                h.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                h.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(h);
+            }
+        }
+
+        function iniciarConMusica() {
+            const audio = document.getElementById('musicaFondo');
+            audio.volume = 0.4;
+            audio.play().catch(e => console.log("La reproducción automática requiere interacción del usuario."));
+            goTo(2);
+        }
+
+        function goTo(n) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('s' + n).classList.add('active');
+            if(n === 4) type("Cuando me das besitos, mi corazón se pone feliz. Gracias por jugar conmigo, por tus cuentos y por quererme tanto, tanto, tanto.");
+            
+            // Bajamos un poco el volumen si hay video para que no se mezclen fuerte
+            const audio = document.getElementById('musicaFondo');
+            if(n === 5) {
+                audio.volume = 0.1;
+            } else {
+                audio.volume = 0.4;
+            }
+        }
+
+        function openGift() {
+            document.getElementById('gift').classList.add('open');
+            if(navigator.vibrate) navigator.vibrate([100, 50, 100]);
+            setTimeout(() => goTo(3), 1300);
+        }
+
+        function type(txt) {
+            let i = 0;
+            const target = document.getElementById('typewriter');
+            target.innerHTML = "";
+            function typing() {
+                if(i < txt.length) {
+                    target.innerHTML += txt.charAt(i);
+                    i++;
+                    setTimeout(typing, 60);
+                } else {
+                    document.getElementById('btn4').style.display = 'block';
+                }
+            }
+            typing();
+        }
+
+        window.onload = createHearts;
+    </script>
+</body>
+</html>
